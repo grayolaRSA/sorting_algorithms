@@ -11,23 +11,24 @@
 
 void selection_sort(int *array, size_t size)
 {
-	unsigned int i, temp = 0;
-	unsigned int j = 0;
-	bool swapped = false;
+	unsigned int i, j, min_pos, temp = 0;
 
-	do {
-		swapped = false;
-		for (i = 0; i < (size - 1 - j); i++)
+	for (i = 0; i < size; i++)
+	{
+		min_pos = i;
+		for (j = i + 1; j < size; j++)
 		{
-			if (array[i] < array[i + 1])
-			{
-				temp = array[i];
-				array[i] = array[i + 1];
-				array[i + 1] = temp;
-				swapped = true;
-				print_array(array, size);
-			}
+			if (array[j] < array[min_pos])
+				min_pos = j;
 		}
-		j++;
-	} while (swapped);
+
+		if (min_pos != i)
+		{
+			temp = array[i];
+			array[i] = array[min_pos];
+			array[min_pos] = temp;
+			print_array(array, size);
+		}
+
+	}
 }
