@@ -1,0 +1,80 @@
+#include "sort.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+/**
+ *quick_sort - applies quick sort algorithm to array
+ *@array: array to be sorted
+ *@size: size of arrays
+ *Return: nothing
+ */
+
+void quick_sort(int *array, size_t size)
+{
+	qsort_recursion(array, 0, size - 1);
+}
+/**
+ *swap - swaps two integers
+ *@x: first integer
+ *@y: second integer
+ *Return: nothing
+ */
+
+void swap(int *x, int *y)
+{
+	int temp = 0;
+
+	temp = *x;
+	*x = *y;
+	*y = temp;
+}
+
+/**
+ *qsort_recursion - recursive function that applies quick sort
+ *@array: int array to be sorted
+ *@low: index of first array integer
+ *@high: index of last array integer
+ *Return: nothing
+ */
+
+void qsort_recursion(int *array, int low, int high)
+{
+	int pivot_ind = 0;
+
+	if (low < high)
+	{
+		pivot_ind = partition(array, low, high);
+		qsort_recursion(array, low, pivot_ind - 1);
+		qsort_recursion(array, pivot_ind + 1, high);
+	}
+}
+/**
+ *partition - partitions the array
+ *@array: array to be partitioned
+ *@low: index of first integer
+ *@high: index of last integer
+ *Return: index of partition
+ */
+
+int partition(int *array, int low, int high)
+{
+	int i, j, pivot_val = 0;
+	size_t size = high;
+
+	pivot_val = array[high];
+
+	i = low;
+
+	for (j = low; j < high; j++)
+	{
+		if (array[j] <= pivot_val)
+		{
+			swap(&array[i], &array[j]);
+			i++;
+			print_array(array, size);
+		}
+	}
+	swap(&array[i], &array[high]);
+
+	return (i);
+}
